@@ -1,0 +1,33 @@
+event_id,event_name,event_date,category,trading_date,GSS_on_event,match_note
+1,Dotcom crash peak,2000-03-10,Market Crash,,,before warmup window — unmeasurable
+2,September 11 attacks,2001-09-11,Military/Conflict,2001-09-17,0.9407528368523108,market closed on event date — matched 6 day(s) forward
+3,Iraq War begins,2003-03-20,Military/Conflict,2003-03-20,-0.6984153320800199,matched on event date
+4,SARS outbreak,2003-03-12,Pandemic,2003-03-12,0.0232966201502228,matched on event date
+5,Hurricane Katrina,2005-08-29,Natural Disaster,2005-08-29,0.0294168692383773,matched on event date
+6,Global Financial Crisis — Lehman collapse,2008-09-15,Financial Crisis,2008-09-15,2.163507941781632,matched on event date
+7,Eurozone debt crisis — Greece bailout,2010-05-02,Financial Crisis,2010-05-03,-0.1626650040518457,market closed on event date — matched 1 day(s) forward
+8,Arab Spring begins,2011-01-14,Political/Institutional,2011-01-14,-0.646734488116482,matched on event date
+9,Fukushima nuclear disaster,2011-03-11,Natural Disaster,2011-03-11,-0.2133259269089701,matched on event date
+10,Russia annexes Crimea,2014-02-27,Military/Conflict,2014-02-27,-0.1534837501334583,matched on event date
+11,ISIS declares caliphate,2014-06-29,Military/Conflict,2014-06-30,-0.1336169784700029,market closed on event date — matched 1 day(s) forward
+12,China stock market crash,2015-06-12,Financial Crisis,2015-06-12,0.0687991631279076,matched on event date
+13,Brexit referendum result,2016-06-23,Political/Institutional,2016-06-23,-0.7912771740348653,matched on event date
+14,Trump elected — first term,2016-11-08,Political/Institutional,2016-11-08,-0.0617461018310031,matched on event date
+15,US sanctions on Iran intensified,2018-05-08,Sanctions & Trade War,2018-05-08,0.0701853565766745,matched on event date
+16,US-China trade war — first tariffs,2018-07-06,Sanctions & Trade War,2018-07-06,-0.4309155095259059,matched on event date
+17,Turkey lira crisis,2018-08-10,Financial Crisis,2018-08-10,1.0001687184450945,matched on event date
+18,Argentina peso crisis,2019-08-12,Financial Crisis,2019-08-12,0.871274031240019,matched on event date
+19,Lebanon financial collapse,2019-10-17,Financial Crisis,2019-10-17,-0.317447721307067,matched on event date
+20,US kills Soleimani,2020-01-03,Military/Conflict,2020-01-03,0.8398642843101066,matched on event date
+21,COVID-19 declared pandemic,2020-03-11,Pandemic,2020-03-11,1.1374193357605695,matched on event date
+22,Capitol insurrection,2021-01-06,Political/Institutional,2021-01-06,-0.4679373936902227,matched on event date
+23,Suez Canal blockage — Ever Given,2021-03-23,Systemic/Supply Chain,2021-03-23,0.1637305057362603,matched on event date
+24,Global semiconductor shortage peak,2021-09-01,Systemic/Supply Chain,2021-09-01,-0.3787909013845478,matched on event date
+25,Russia invades Ukraine,2022-02-24,Military/Conflict,2022-02-24,0.4549015096423483,matched on event date
+26,Russia SWIFT sanctions,2022-02-26,Sanctions & Trade War,2022-02-28,0.497461827722769,market closed on event date — matched 2 day(s) forward
+27,Sri Lanka sovereign default,2022-04-12,Financial Crisis,2022-04-12,0.2110029856787669,matched on event date
+28,US chip export controls on China,2022-10-07,Sanctions & Trade War,2022-10-07,0.8850916863920822,matched on event date
+29,Silicon Valley Bank collapse,2023-03-10,Financial Crisis,2023-03-10,0.5107974045217373,matched on event date
+30,US debt ceiling crisis,2023-06-01,Political/Institutional,2023-06-01,-0.1560336497184361,matched on event date
+31,Hamas attack — Israel-Gaza war begins,2023-10-07,Military/Conflict,2023-10-09,0.1092858927805198,market closed on event date — matched 2 day(s) forward
+32,Trump re-elected — second term,2024-11-05,Political/Institutional,2024-11-05,-0.2935811847941505,matched on event date

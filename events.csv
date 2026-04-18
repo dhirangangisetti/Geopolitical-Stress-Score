@@ -1,0 +1,33 @@
+event_id,event_name,event_date,category
+1,Dotcom crash peak,2000-03-10,Market Crash
+2,September 11 attacks,2001-09-11,Military/Conflict
+3,Iraq War begins,2003-03-20,Military/Conflict
+4,SARS outbreak,2003-03-12,Pandemic
+5,Hurricane Katrina,2005-08-29,Natural Disaster
+6,Global Financial Crisis — Lehman collapse,2008-09-15,Financial Crisis
+7,Eurozone debt crisis — Greece bailout,2010-05-02,Financial Crisis
+8,Arab Spring begins,2011-01-14,Political/Institutional
+9,Fukushima nuclear disaster,2011-03-11,Natural Disaster
+10,Russia annexes Crimea,2014-02-27,Military/Conflict
+11,ISIS declares caliphate,2014-06-29,Military/Conflict
+12,China stock market crash,2015-06-12,Financial Crisis
+13,Brexit referendum result,2016-06-23,Political/Institutional
+14,Trump elected — first term,2016-11-08,Political/Institutional
+15,US sanctions on Iran intensified,2018-05-08,Sanctions & Trade War
+16,US-China trade war — first tariffs,2018-07-06,Sanctions & Trade War
+17,Turkey lira crisis,2018-08-10,Financial Crisis
+18,Argentina peso crisis,2019-08-12,Financial Crisis
+19,Lebanon financial collapse,2019-10-17,Financial Crisis
+20,US kills Soleimani,2020-01-03,Military/Conflict
+21,COVID-19 declared pandemic,2020-03-11,Pandemic
+22,Capitol insurrection,2021-01-06,Political/Institutional
+23,Suez Canal blockage — Ever Given,2021-03-23,Systemic/Supply Chain
+24,Global semiconductor shortage peak,2021-09-01,Systemic/Supply Chain
+25,Russia invades Ukraine,2022-02-24,Military/Conflict
+26,Russia SWIFT sanctions,2022-02-26,Sanctions & Trade War
+27,Sri Lanka sovereign default,2022-04-12,Financial Crisis
+28,US chip export controls on China,2022-10-07,Sanctions & Trade War
+29,Silicon Valley Bank collapse,2023-03-10,Financial Crisis
+30,US debt ceiling crisis,2023-06-01,Political/Institutional
+31,Hamas attack — Israel-Gaza war begins,2023-10-07,Military/Conflict
+32,Trump re-elected — second term,2024-11-05,Political/Institutional
