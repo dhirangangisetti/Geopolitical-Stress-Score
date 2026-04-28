@@ -169,6 +169,13 @@ footer{border-top:1px solid var(--border);padding:52px 0 64px}
           <option value="JPY_USD">JPY / USD</option>
         </select>
       </div>
+      <div class="ctrl-group" style="justify-content:flex-end;padding-bottom:4px">
+        <label class="toggle-wrap"><input type="checkbox" id="cmp-show-events" checked><span>Show event markers</span></label>
+      </div>
+    </div>
+    <div id="cmp-cat-wrap" class="ctrl-group" style="margin-bottom:20px">
+      <span class="ctrl-label" style="margin-bottom:8px;display:block">Event Categories</span>
+      <div class="cat-pills" id="cmp-cats"></div>
     </div>
     <div class="chart-wrap">
       <div id="cmp-chart" style="height:460px"></div>
@@ -327,14 +334,58 @@ document.getElementById('exp-show-events').addEventListener('change', () => {
 });
 
 // ── COMPARE ──
+let cmpCats = new Set(ALL_CATS);
+
+function buildCmpCatPills() {
+  const wrap = document.getElementById('cmp-cats');
+  if (!wrap) return;
+  ALL_CATS.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-pill active';
+    btn.textContent = cat;
+    btn.style.cssText = 'border-color:'+CAT_COLORS[cat]+';color:'+CAT_COLORS[cat];
+    btn.onclick = () => {
+      if (cmpCats.has(cat)) { cmpCats.delete(cat); btn.classList.remove('active'); }
+      else { cmpCats.add(cat); btn.classList.add('active'); }
+      renderCompare();
+    };
+    wrap.appendChild(btn);
+  });
+}
+
 function renderCompare() {
   const a = document.getElementById('cmp-a').value;
   const b = document.getElementById('cmp-b').value;
+  const showEv = document.getElementById('cmp-show-events').checked;
   const da = DATA.assets[a], db = DATA.assets[b];
   const traces = [
     {x:da.dates,y:da.values,type:'scatter',mode:'lines',name:ASSET_LABELS[a],line:{color:ASSET_COLORS[a],width:2},hovertemplate:'<b>%{x}</b><br>'+ASSET_LABELS[a]+': %{y:.3f}<extra></extra>'},
     {x:db.dates,y:db.values,type:'scatter',mode:'lines',name:ASSET_LABELS[b],line:{color:ASSET_COLORS[b],width:2,dash:'dot'},hovertemplate:'<b>%{x}</b><br>'+ASSET_LABELS[b]+': %{y:.3f}<extra></extra>'}
   ];
+
+  if (showEv) {
+    const groups = {};
+    DATA.events.forEach(ev => {
+      if (!cmpCats.has(ev.category)) return;
+      const za = ev.assets[a], zb = ev.assets[b];
+      const z = (za != null && zb != null) ? (za + zb) / 2 : (za != null ? za : zb);
+      if (z == null) return;
+      if (!groups[ev.category]) groups[ev.category] = {x:[],y:[],hov:[]};
+      groups[ev.category].x.push(ev.trading_date);
+      groups[ev.category].y.push(z);
+      groups[ev.category].hov.push('<b>'+ev.name+'</b><br>'+ev.date+'<br>'+ev.category+
+        (za != null ? '<br>'+ASSET_LABELS[a]+': '+za.toFixed(3) : '')+
+        (zb != null ? '<br>'+ASSET_LABELS[b]+': '+zb.toFixed(3) : ''));
+    });
+    Object.entries(groups).forEach(([cat, g]) => {
+      traces.push({
+        x:g.x, y:g.y, mode:'markers', name:cat,
+        marker:{symbol:'diamond',size:9,color:CAT_COLORS[cat],line:{color:'#0e0e0e',width:1}},
+        hovertemplate:'%{customdata}<extra></extra>', customdata:g.hov
+      });
+    });
+  }
+
   const lay = layout({
     height:460,
     xaxis:{showgrid:false,zeroline:false,tickfont:{size:11},color:'#6b6760',
@@ -350,6 +401,10 @@ function renderCompare() {
 
 document.getElementById('cmp-a').addEventListener('change', renderCompare);
 document.getElementById('cmp-b').addEventListener('change', renderCompare);
+document.getElementById('cmp-show-events').addEventListener('change', () => {
+  document.getElementById('cmp-cat-wrap').style.display = document.getElementById('cmp-show-events').checked ? '' : 'none';
+  renderCompare();
+});
 
 // ── EVENTS ──
 let selEvent = null, adjMode = false;
@@ -422,6 +477,7 @@ document.getElementById('btn-adj').addEventListener('click', () => { adjMode=tru
 
 // ── INIT ──
 buildCatPills();
+buildCmpCatPills();
 buildEventList();
 renderExplore();
 </script>
