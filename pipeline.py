@@ -196,24 +196,18 @@ def merge_events(gss_df):
         return gss_df
 
     events = pd.read_csv(events_path, parse_dates=['event_date'])
-
-    # yfinance returns timezone-aware dates (UTC) — strip timezone so event dates
-    # (which are timezone-naive) can be matched against the GSS index cleanly
-    gss_series = gss_df['GSS'].copy()
-    if gss_series.index.tz is not None:
-        gss_series.index = gss_series.index.tz_convert(None)
-    gss_index = gss_series.index
+    gss_index = gss_df.index
 
     # for each event, find the nearest trading day in the GSS date index
     # this handles weekends and public holidays cleanly
     matched_dates = []
     for _, row in events.iterrows():
-        target = pd.Timestamp(row['event_date']).tz_localize(None)
+        target = row['event_date']
         nearest = (gss_index - target).to_series().abs().idxmin()
         matched_dates.append(nearest)
 
     events['trading_date']  = matched_dates
-    events['GSS_on_event']  = events['trading_date'].map(gss_series)
+    events['GSS_on_event']  = events['trading_date'].map(gss_df['GSS'])
 
     events.to_csv(PROCESSED_DIR / 'events_with_gss.csv', index=False)
 

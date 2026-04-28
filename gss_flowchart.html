@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GSS Calculation Flowchart</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: #58a6ff;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #8b949e;
+      margin-bottom: 48px;
+    }
+
+    .flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Stage boxes ── */
+    .stage {
+      width: 100%;
+      border-radius: 10px;
+      padding: 18px 24px;
+      position: relative;
+    }
+
+    .stage-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    .stage-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .stage-desc {
+      font-size: 13px;
+      color: #8b949e;
+      line-height: 1.6;
+    }
+
+    .stage-formula {
+      margin-top: 10px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #79c0ff;
+      border-left: 3px solid #58a6ff;
+    }
+
+    /* stage colours */
+    .s1 { background: #161b22; border: 1px solid #21262d; }
+    .s2 { background: #161b22; border: 1px solid #21262d; }
+    .s3 { background: #161b22; border: 1px solid #21262d; }
+    .s4 { background: #161b22; border: 1px solid #21262d; }
+    .s5 { background: #0d2236; border: 1px solid #1f6feb; }
+
+    .s1 .stage-label { color: #d2a8ff; }
+    .s2 .stage-label { color: #79c0ff; }
+    .s3 .stage-label { color: #56d364; }
+    .s4 .stage-label { color: #ffa657; }
+    .s5 .stage-label { color: #58a6ff; }
+
+    .s1 .stage-title { color: #d2a8ff; }
+    .s2 .stage-title { color: #79c0ff; }
+    .s3 .stage-title { color: #56d364; }
+    .s4 .stage-title { color: #ffa657; }
+    .s5 .stage-title { color: #58a6ff; }
+
+    /* ── Asset grid ── */
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .asset-card {
+      background: rgba(0,0,0,0.25);
+      border-radius: 6px;
+      padding: 8px 12px;
+      border-left: 3px solid;
+      font-size: 12px;
+    }
+
+    .asset-card .aname { font-weight: 600; color: #e6edf3; }
+    .asset-card .aticker { color: #8b949e; font-family: monospace; font-size: 11px; }
+    .asset-card .adir { font-size: 10px; margin-top: 3px; }
+    .dir-up   { color: #f85149; }
+    .dir-down { color: #3fb950; }
+
+    .stress-up   { border-color: #f85149; }
+    .stress-down { border-color: #3fb950; }
+
+    /* ── Arrow ── */
+    .arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2px 0;
+    }
+
+    .arrow-line {
+      width: 2px;
+      height: 28px;
+      background: #30363d;
+    }
+
+    .arrow-head {
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 10px solid #30363d;
+    }
+
+    /* ── Direction legend ── */
+    .legend {
+      display: flex;
+      gap: 20px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #8b949e;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* ── Composite section ── */
+    .composite-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .z-chip {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #79c0ff;
+    }
+
+    .plus-sign {
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    .eq-sign {
+      color: #ffa657;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .gss-result {
+      background: #1f6feb;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    /* ── Scale ── */
+    .scale-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .scale-chip {
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .sc-calm   { background: #1a3a2a; color: #56d364; border: 1px solid #56d364; }
+    .sc-low    { background: #1a2a1a; color: #3fb950; border: 1px solid #3fb950; }
+    .sc-mod    { background: #2a2a1a; color: #e3b341; border: 1px solid #e3b341; }
+    .sc-high   { background: #2a1a1a; color: #ffa657; border: 1px solid #ffa657; }
+    .sc-crisis { background: #2a1010; color: #f85149; border: 1px solid #f85149; }
+
+    /* ── no-weight callout ── */
+    .callout {
+      background: #1c2128;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #8b949e;
+      line-height: 1.6;
+    }
+
+    .callout strong { color: #e6edf3; }
+  </style>
+</head>
+<body>
+
+  <h1>Geopolitical Stress Score — Calculation Pipeline</h1>
+  <p class="subtitle">How 11 global assets become one composite stress number</p>
+
+  <div class="flow">
+
+    <!-- STAGE 1 -->
+    <div class="stage s1">
+      <div class="stage-label">Stage 1 — Input</div>
+      <div class="stage-title">Raw Daily Price Data</div>
+      <div class="stage-desc">
+        Historical closing prices fetched via Yahoo Finance from 1 January 2000 to present.
+        All data is free and public. Assets with shorter histories (Bitcoin from 2014,
+        High Yield Bonds from 2007, Emerging Markets from 2003) contribute once available.
+      </div>
+      <div class="asset-grid" style="margin-top:14px;">
+        <div class="asset-card stress-down">
+          <div class="aname">S&P 500</div>
+          <div class="aticker">^GSPC</div>
+          <div class="adir dir-down">↓ falling = stress</div>
+        </div>
+        <div class="asset-card stress-up">
+          <div class="aname">Gold</div>
+          <div class="aticker">GC=F</div>
+          <div class="adir dir-up">↑ rising = stress</div>
+        </div>
+        <div class="asset-card stress-up">
+          <div class="aname">WTI Crude Oil</div>
+          <div class="aticker">CL=F</div>
+          <div class="adir dir-up">↑ rising = stress</div>
+        </div>
+        <div class="asset-card stress-up">
+          <div class="aname">VIX</div>
+          <div class="aticker">^VIX</div>
+          <div class="adir dir-up">↑ level rising = stress</div>
+        </div>
+        <div class="asset-card stress-down">
+          <div class="aname">10Y Treasury</div>
+          <div class="aticker">^TNX</div>
+          <div class="adir dir-down">↓ yield falling = stress</div>
+        </div>
+        <div class="asset-card stress-up">
+          <div class="aname">US Dollar Index</div>
+          <div class="aticker">DX-Y.NYB</div>
+          <div class="adir dir-up">↑ rising = stress</div>
+        </div>
+        <div class="asset-card stress-down">
+          <div class="aname">Bitcoin</div>
+          <div class="aticker">BTC-USD</div>
+          <div class="adir dir-down">↓ falling = stress</div>
+        </div>
+        <div class="asset-card stress-down">
+          <div class="aname">Emerging Markets</div>
+          <div class="aticker">EEM</div>
+          <div class="adir dir-down">↓ falling = stress</div>
+        </div>
+        <div class="asset-card stress-down">
+          <div class="aname">High Yield Bonds</div>
+          <div class="aticker">HYG</div>
+          <div class="adir dir-down">↓ falling = stress</div>
+        </div>
+        <div class="asset-card stress-down">
+          <div class="aname">EUR / USD</div>
+          <div class="aticker">EURUSD=X</div>
+          <div class="adir dir-down">↓ falling = stress</div>
+        </div>
+        <div class="asset-card stress-down">
+          <div class="aname">Japanese Yen</div>
+          <div class="aticker">JPY=X</div>
+          <div class="adir dir-down">↓ USD/JPY fall = stress</div>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f85149;"></div>
+          Rising value signals stress
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#3fb950;"></div>
+          Falling value signals stress
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STAGE 2 -->
+    <div class="stage s2">
+      <div class="stage-label">Stage 2 — Transform</div>
+      <div class="stage-title">Daily Returns</div>
+      <div class="stage-desc">
+        Prices are converted to daily percentage returns so assets on different scales
+        (e.g. gold at $2,000 vs VIX at 20) can be compared on equal footing.
+        VIX is the exception — its raw level is used directly because a VIX of 40
+        is inherently meaningful, not just a percentage move in VIX.
+      </div>
+      <div class="stage-formula">
+        return<sub>t</sub> = (price<sub>t</sub> − price<sub>t-1</sub>) / price<sub>t-1</sub>
+        &nbsp;&nbsp;&nbsp;  [all assets except VIX]<br/>
+        VIX: raw level used as-is
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STAGE 3 -->
+    <div class="stage s3">
+      <div class="stage-label">Stage 3 — Normalise</div>
+      <div class="stage-title">Rolling 252-Day Z-Score per Asset</div>
+      <div class="stage-desc">
+        For each asset on each trading day, the z-score measures how unusual today's return is
+        relative to the past 252 trading days (one full trading year). The window rolls forward
+        daily, so "normal" always reflects recent market conditions, not a static historical average.
+        A minimum of 252 days of prior data is required before a z-score is produced.
+      </div>
+      <div class="stage-formula">
+        z<sub>t</sub> = (return<sub>t</sub> − rolling_mean<sub>252</sub>) / rolling_std<sub>252</sub><br/><br/>
+        z ≈ 0 &nbsp;→&nbsp; ordinary day<br/>
+        z &gt; 2 &nbsp;→&nbsp; unusual<br/>
+        z &gt; 3 &nbsp;→&nbsp; extreme
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STAGE 4 -->
+    <div class="stage s4">
+      <div class="stage-label">Stage 4 — Align</div>
+      <div class="stage-title">Direction Multiplier Applied</div>
+      <div class="stage-desc">
+        Each asset's z-score is multiplied by +1 or −1 so that a positive z-score
+        always means stress, regardless of the asset. For example, a falling S&P 500 produces
+        a negative return and a negative z-score — multiplying by −1 flips it positive.
+        This ensures all 11 signals point in the same direction before averaging.
+        No subjective weights are applied at this stage or any other.
+      </div>
+      <div class="stage-formula">
+        adjusted_z = raw_z × direction_multiplier<br/>
+        &nbsp;&nbsp;S&P 500, Bitcoin, EEM, HYG, EUR/USD, JPY: × −1<br/>
+        &nbsp;&nbsp;Gold, Oil, VIX, USD Index: × +1<br/>
+        &nbsp;&nbsp;Treasury Yield: × −1 &nbsp;(falling yield = stress)
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STAGE 5 -->
+    <div class="stage s5">
+      <div class="stage-label">Stage 5 — Composite</div>
+      <div class="stage-title">Equal-Weight Average → GSS Score</div>
+      <div class="stage-desc">
+        The 11 direction-adjusted z-scores are averaged with equal weight into the final
+        Geopolitical Stress Score. No asset is treated as more important than another.
+        A minimum of 6 out of 11 assets must have valid z-scores on a given day for the
+        composite to be computed — this handles the Bitcoin data gap cleanly before 2014.
+      </div>
+      <div class="composite-row">
+        <span class="z-chip">z₁</span>
+        <span class="plus-sign">+</span>
+        <span class="z-chip">z₂</span>
+        <span class="plus-sign">+</span>
+        <span class="z-chip">z₃</span>
+        <span class="plus-sign">+ ··· +</span>
+        <span class="z-chip">z₁₁</span>
+        <span class="eq-sign">÷ n</span>
+        <span class="gss-result">GSS Score</span>
+      </div>
+      <div class="callout" style="margin-top:14px;">
+        <strong>No weights, by design.</strong> Assigning weights (e.g. gold at 20%, VIX at 15%)
+        would require defending arbitrary choices. Equal weighting means the score rises when multiple
+        assets simultaneously deviate from normal — which is the definition of systemic stress.
+        A single asset spiking in isolation barely moves the composite.
+      </div>
+
+      <!-- Score scale -->
+      <div style="margin-top:16px; font-size:12px; color:#8b949e; margin-bottom:6px;">
+        Observed score range in dataset (2001 – 2026):
+      </div>
+      <div class="scale-row">
+        <div class="scale-chip sc-calm">Below 0<br/>Calm / Risk-on</div>
+        <div class="scale-chip sc-low">0 – 0.5<br/>Mild stress</div>
+        <div class="scale-chip sc-mod">0.5 – 1.0<br/>Elevated stress</div>
+        <div class="scale-chip sc-high">1.0 – 2.0<br/>High stress</div>
+        <div class="scale-chip sc-crisis">Above 2.0<br/>Crisis (GFC: 2.16)</div>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="text-align:center; margin-top:32px; font-size:11px; color:#484f58;">
+    P5 — Geopolitical Stress Score &nbsp;|&nbsp; Dhiran Gangisetti &nbsp;|&nbsp; Monash University
+  </p>
+
+</body>
+</html>
