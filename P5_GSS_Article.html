@@ -420,12 +420,10 @@ document.getElementById('ev-search').addEventListener('input', e => buildEventLi
 document.getElementById('btn-raw').addEventListener('click', () => { adjMode=false; document.getElementById('btn-raw').classList.add('active'); document.getElementById('btn-adj').classList.remove('active'); renderEvChart(); });
 document.getElementById('btn-adj').addEventListener('click', () => { adjMode=true; document.getElementById('btn-adj').classList.add('active'); document.getElementById('btn-raw').classList.remove('active'); renderEvChart(); });
 
-// ── INIT (only render the active tab) ──
-window.addEventListener('load', () => {
-  buildCatPills();
-  buildEventList();
-  renderExplore();
-});
+// ── INIT ──
+buildCatPills();
+buildEventList();
+renderExplore();
 </script>
 </body>
 </html>
