@@ -79,10 +79,11 @@ footer{border-top:1px solid var(--border);padding:52px 0 64px}
 <header>
   <div class="constrain">
     <div class="tag">Cross-Asset Analysis &nbsp;·&nbsp; P5</div>
-    <h1>What actually moves markets?<br>I built a lens to find out.</h1>
-    <p class="deck">I took 11 globally traded instruments — equities, bonds, currencies, commodities, and crypto — and measured how unusual each trading day has been relative to the prior year, going back to 2001. This is an observatory, not a verdict.</p>
+    <h1>Which events actually<br>moved markets?</h1>
+    <p class="deck">Financial media called nearly every major event a crisis over the past 25 years. Most weren't — not by what prices actually did. I built this to see which ones were.</p>
+    <p class="deck" style="margin-top:-8px">It measures how unusual each trading day has been across 11 global markets simultaneously — equities, bonds, currencies, commodities, and crypto — going back to 2001. Not a model. Not a prediction. Just 25 years of market behaviour, laid flat so you can look at it.</p>
     <div class="byline">Dhiran Gangisetti &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; 11 assets &nbsp;·&nbsp; ~6,200 trading days &nbsp;·&nbsp; 31 events</div>
-    <div class="honest-note"><strong>A note on assumptions:</strong> Direction signs — which way an asset moves under stress — reflect historical tendencies, not laws. These relationships shift across regimes. The 252-day rolling window is a convention. Explore the data — don't take the framing as given.</div>
+    <div class="honest-note"><strong>Worth knowing before you explore:</strong> How an asset behaves under stress is a historical tendency, not a rule. The 252-day window is a convention. Some of what you'll find will confirm what you expected. Some of it won't — and that's the interesting part.</div>
   </div>
 </header>
 
@@ -213,12 +214,10 @@ footer{border-top:1px solid var(--border);padding:52px 0 64px}
 
 <footer>
   <div class="constrain">
-    <p class="footer-title">How it works</p>
+    <p class="footer-title">Under the hood</p>
     <div class="footer-body">
-      <strong>Step 1 — Daily return.</strong> For each asset, every trading day: <code>(price today − price yesterday) / price yesterday</code>.<br><br>
-      <strong>Step 2 — Rolling z-score.</strong> Compare today's return against the prior 252 trading days (one trading year). The z-score answers: how many standard deviations from normal is today? Zero = ordinary. Two = genuinely unusual. Three or above = historically rare for that asset in that period.<br><br>
-      <strong>Step 3 — Direction convention.</strong> Under stress, some assets typically rise (Gold, VIX) and others fall (equities, credit). The stress-adjusted view in the Events tab flips signs so that positive always means stress. This is an empirical convention, not a law — these relationships shift across regimes.<br><br>
-      <strong>What this is not.</strong> This index cannot distinguish fear from forced liquidation, hedging demand, carry unwind mechanics, or policy-driven repricing. It measures cross-asset abnormality. What you read into that is up to you.<br><br>
+      Every day, for each asset, I calculate how far that day's price move sits from the average of the prior 252 trading days — expressed in standard deviations. That's the z-score. A reading near zero is a normal day. A reading above two means something genuinely unusual happened for that asset in that period.<br><br>
+      The stress-adjusted toggle in the Events tab flips the sign on assets that fall under stress (equities, credit) so that a high reading always points in the same direction — up means abnormal, regardless of which way the price moved. This is a convention based on historical patterns. It holds most of the time. Not always.<br><br>
       <strong>Data:</strong> Yahoo Finance via yfinance &nbsp;·&nbsp; <strong>Assets:</strong> 11 &nbsp;·&nbsp; <strong>Window:</strong> 252 trading days &nbsp;·&nbsp; <strong>Events:</strong> 31 scored, 2001–2026
     </div>
     <div class="footer-links">
