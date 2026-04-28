@@ -413,7 +413,7 @@ function renderEvChart() {
 
   document.getElementById('ev-note').textContent = adjMode
     ? 'Stress-adjusted: signs flipped so positive = stress direction. Red = moved in stress direction, blue = against.'
-    : 'Raw z-scores: positive = price moved above prior-year average. See footer for each asset's stress direction.';
+    : "Raw z-scores: positive = price moved above prior-year average. See footer for each asset's stress direction.";
 }
 
 document.getElementById('ev-search').addEventListener('input', e => buildEventList(e.target.value));
