@@ -79,11 +79,11 @@ footer{border-top:1px solid var(--border);padding:52px 0 64px}
 <header>
   <div class="constrain">
     <div class="tag">Cross-Asset Analysis &nbsp;·&nbsp; P5</div>
-    <h1>Which events actually<br>moved markets?</h1>
-    <p class="deck">Financial media called nearly every major event a crisis over the past 25 years. Most weren't — not by what prices actually did. I built this to see which ones were.</p>
-    <p class="deck" style="margin-top:-8px">It measures how unusual each trading day has been across 11 global markets simultaneously — equities, bonds, currencies, commodities, and crypto — going back to 2001. Not a model. Not a prediction. Just 25 years of market behaviour, laid flat so you can look at it.</p>
+    <h1>Is it really that bad right now?<br><em style="font-style:italic;font-weight:400;font-size:0.75em;color:#a8a49c">25 years of market shocks, laid flat.</em></h1>
+    <p class="deck">Trade wars. Tariff shocks. Geopolitical fractures. The news cycle treats all of it as unprecedented. But markets have a memory — and 25 years of price data tells a more complicated story.</p>
+    <p class="deck" style="margin-top:-6px">I built this to put the current moment in context. Not to draw conclusions. Not to say things are fine. Just to see what global markets — equities, bonds, currencies, commodities, and crypto — actually did the last time the world felt like this. And the time before that.</p>
     <div class="byline">Dhiran Gangisetti &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; 11 assets &nbsp;·&nbsp; ~6,200 trading days &nbsp;·&nbsp; 31 events</div>
-    <div class="honest-note"><strong>Worth knowing before you explore:</strong> How an asset behaves under stress is a historical tendency, not a rule. The 252-day window is a convention. Some of what you'll find will confirm what you expected. Some of it won't — and that's the interesting part.</div>
+    <div class="honest-note"><strong>Before you explore:</strong> How an asset behaves under stress is a historical tendency, not a rule. These relationships shift. The 252-day window is a convention. Some of what you find will confirm what you expected. Some of it won't.</div>
   </div>
 </header>
 
@@ -100,7 +100,7 @@ footer{border-top:1px solid var(--border);padding:52px 0 64px}
 <section class="tab-panel active" id="tab-explore">
   <div class="constrain">
     <p class="section-title">Asset Explorer</p>
-    <p class="section-sub">Select an asset and explore its z-score over 25 years. Overlay geopolitical events to see where they land.</p>
+    <p class="section-sub">Pick an asset. See how abnormal each period was relative to its own recent history. Then find where today sits.</p>
     <div class="controls">
       <div class="ctrl-group">
         <span class="ctrl-label">Asset</span>
@@ -136,7 +136,7 @@ footer{border-top:1px solid var(--border);padding:52px 0 64px}
 <section class="tab-panel" id="tab-compare">
   <div class="constrain">
     <p class="section-title">Side-by-Side Comparison</p>
-    <p class="section-sub">Plot two assets on the same chart to see how their stress signals relate — or diverge.</p>
+    <p class="section-sub">Do two markets always move together under stress — or do they diverge? Pick a pair and check. The answer often depends on what kind of shock it was.</p>
     <div class="controls">
       <div class="ctrl-group">
         <span class="ctrl-label">Asset A</span>
@@ -188,7 +188,7 @@ footer{border-top:1px solid var(--border);padding:52px 0 64px}
 <section class="tab-panel" id="tab-events">
   <div class="constrain">
     <p class="section-title">Event Breakdown</p>
-    <p class="section-sub">Select an event to see each asset's z-score on that day — which markets moved, and which didn't.</p>
+    <p class="section-sub">Thirty-one events. Click one and see which markets actually reacted on the day — and which ones shrugged. The gap between the headline and the market response is usually where things get interesting.</p>
     <div class="events-grid">
       <div>
         <input type="text" id="ev-search" placeholder="Search events…" style="width:100%;min-width:0;margin-bottom:10px">
