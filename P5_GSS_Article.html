@@ -164,11 +164,60 @@ footer p{font-size:14px;color:var(--muted);margin-bottom:24px}
     </div>
   </div>
 </div>
+
+<section style="padding:64px 0;border-top:1px solid var(--border)">
+  <div class="constrain">
+    <h2 class="section-h">Methodology</h2>
+    <p class="graf">The score is built entirely from price data — no narrative inputs, no hand-tuned weights. Every methodological choice follows a standard convention in quantitative finance.</p>
+
+    <p class="graf"><strong>Step 1 — Daily return.</strong> For each asset, every trading day, calculate how much the price moved as a percentage: <code style="background:var(--surface);padding:2px 7px;border-radius:3px;font-size:15px;color:var(--accent)">(price today − price yesterday) / price yesterday</code>. That's the raw signal.</p>
+
+    <p class="graf"><strong>Step 2 — Rolling z-score.</strong> Compare today's return against the prior 252 trading days (one trading year). The z-score answers: how many standard deviations away from normal is today? A score of 0 means completely ordinary. A score of 2 means genuinely unusual. A score of 3+ means something serious is happening — by historical standards, that level of abnormality is rare.</p>
+
+    <p class="graf"><strong>Step 3 — Direction adjustment.</strong> Under stress, some assets rise (Gold, VIX) and others fall (equities, credit). Without adjustment, these signals cancel each other out. Each asset is assigned a direction so that stress always reads positive, regardless of which way the price moved.</p>
+
+    <p class="graf"><strong>Step 4 — Equal-weighted composite.</strong> The GSS is the simple average of all valid asset z-scores on a given day. No asset is given more importance than another. The minimum threshold is 6 of 11 assets — days with insufficient data are excluded rather than estimated.</p>
+
+    <div class="callout" style="margin:36px 0">
+      <p>The only judgment calls are the direction signs (economically obvious) and the 252-day window (a standard convention). Everything else is arithmetic.</p>
+    </div>
+
+    <h2 class="section-h" style="margin-top:40px">What each asset measures</h2>
+    <p class="graf">A high z-score on any individual asset means that asset moved more than usual for that period. The table below shows what a high reading on each one typically signals.</p>
+
+    <div style="margin:28px 0;overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border)">
+            <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Asset</th>
+            <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Direction</th>
+            <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">A high score means…</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">S&amp;P 500</td><td style="padding:11px 16px;color:var(--muted)">Flipped (−1)</td><td style="padding:11px 16px;color:#a8a49c">Equity sell-off — investors are exiting risk</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">Gold</td><td style="padding:11px 16px;color:var(--muted)">+1</td><td style="padding:11px 16px;color:#a8a49c">Safe-haven demand — capital fleeing into stores of value</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">WTI Crude Oil</td><td style="padding:11px 16px;color:var(--muted)">+1</td><td style="padding:11px 16px;color:#a8a49c">Supply shock or energy stress — geopolitical disruption to oil flows</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">VIX</td><td style="padding:11px 16px;color:var(--muted)">+1 (raw level)</td><td style="padding:11px 16px;color:#a8a49c">Implied volatility spike — options markets pricing in fear</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">10Y US Treasury</td><td style="padding:11px 16px;color:var(--muted)">Flipped (−1)</td><td style="padding:11px 16px;color:#a8a49c">Yields falling sharply — flight to quality into government bonds</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">USD Index</td><td style="padding:11px 16px;color:var(--muted)">+1</td><td style="padding:11px 16px;color:#a8a49c">Dollar strength — global reserve demand surging under uncertainty</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">Bitcoin</td><td style="padding:11px 16px;color:var(--muted)">Flipped (−1)</td><td style="padding:11px 16px;color:#a8a49c">Crypto risk-off — speculative assets being dumped</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">Emerging Markets</td><td style="padding:11px 16px;color:var(--muted)">Flipped (−1)</td><td style="padding:11px 16px;color:#a8a49c">EM equity stress — capital withdrawing from higher-risk economies</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">High Yield Bonds</td><td style="padding:11px 16px;color:var(--muted)">Flipped (−1)</td><td style="padding:11px 16px;color:#a8a49c">Credit spreads widening — lenders demanding more premium for risk</td></tr>
+          <tr style="border-bottom:1px solid #1c1c1c"><td style="padding:11px 16px;color:#dedad4">EUR / USD</td><td style="padding:11px 16px;color:var(--muted)">Flipped (−1)</td><td style="padding:11px 16px;color:#a8a49c">Euro weakening vs dollar — European or global risk-off rotation</td></tr>
+          <tr><td style="padding:11px 16px;color:#dedad4">Japanese Yen</td><td style="padding:11px 16px;color:var(--muted)">Flipped (−1)</td><td style="padding:11px 16px;color:#a8a49c">Yen weakening vs dollar — carry trade unwinds signal stress</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="graf" style="margin-top:8px;font-size:14px;color:var(--muted)">Direction is applied before averaging. An asset with a high z-score and a stress-direction sign contributes positively to the composite regardless of whether the price went up or down.</p>
+  </div>
+</section>
 <footer>
   <div class="constrain">
     <p>Built with Python, yfinance, and Plotly &nbsp;·&nbsp; 11 assets &nbsp;·&nbsp; Rolling 252-day z-score baseline &nbsp;·&nbsp; 31 events, 2001–2026</p>
-    <a class="btn fill" href="https://geopolitical-stress-score-cheprscwtpscphur7k5rai.streamlit.app/" target="_blank">Full Streamlit App &#8594;</a>
-    <a class="btn" href="https://github.com/dhirangangisetti" target="_blank">GitHub</a>
+    <a class="btn fill" href="https://github.com/dhirangangisetti/Geopolitical-Stress-Score" target="_blank">View on GitHub &#8594;</a>
+    <a class="btn" href="https://github.com/dhirangangisetti" target="_blank">Portfolio</a>
   </div>
 </footer>
 <script>
